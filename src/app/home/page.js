@@ -4,26 +4,45 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const router = useRouter();
   const supabase = createClient();
 
   useEffect(() => {
-    const getSession = async () => {
+    const fetchUserData = async () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+
       if (session) {
-        setUser(session.user);
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("name, username")
+          .eq("id", session.user.id)
+          .single();
+
+        setUserData({
+          name: profile?.name || session.user.user_metadata.username,
+          email: session.user.email,
+        });
       } else {
         router.push("/auth/login");
       }
     };
 
-    getSession();
+    fetchUserData();
   }, []);
 
   return (
-    <div>{user ? <h1>Welcome, {user.email}!</h1> : <p>Loading...</p>}</div>
+    <div>
+      {userData ? (
+        <>
+          <h1>Welcome, {userData.name}!</h1>
+          <p>Username: @{userData.username}</p>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
   );
 }
