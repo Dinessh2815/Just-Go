@@ -12,94 +12,77 @@ export default function Signup() {
     e.preventDefault();
     const supabase = createClient();
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-        data: { username }, // Store username in auth.users
-      },
-    });
-
-    if (error) {
-      alert(error.message);
-    } else {
-      // Insert into profiles table
-      const { error: profileError } = await supabase.from("profiles").insert([
-        {
-          id: data.user.id,
-          email,
-          name,
-          username,
+    // Sign up user with metadata
+    const { data: signupData, error: signupError } = await supabase.auth.signUp(
+      {
+        email,
+        password,
+        options: {
+          data: {
+            name: name, // Pass name entered by user
+            username: username, // Pass username entered by user
+          },
+          emailRedirectTo: `${location.origin}/auth/callback`,
         },
-      ]);
+      }
+    );
 
-      if (profileError) alert(profileError.message);
-      else alert("Verification email sent");
+    if (signupError) {
+      console.error("Signup Error:", signupError.message);
+      alert("Error signing up:", signupError.message);
+      return;
     }
+
+    alert("Signup successful! Please check your email for verification.");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
-      <h2>Sign Up</h2>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Full Name"
-        style={inputStyle}
-        required
-      />
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-        style={inputStyle}
-        maxLength={40}
-        required
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        style={inputStyle}
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        style={inputStyle}
-        required
-      />
-      <button type="submit" style={buttonStyle}>
-        Sign Up
-      </button>
-    </form>
+    <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm"
+      >
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">Sign Up</h2>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Full Name"
+          className="mb-2 p-2 w-full border border-gray-300 rounded"
+          required
+        />
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          className="mb-2 p-2 w-full border border-gray-300 rounded"
+          maxLength={40}
+          required
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          className="mb-2 p-2 w-full border border-gray-300 rounded"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          className="mb-4 p-2 w-full border border-gray-300 rounded"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full p-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+        >
+          Sign Up
+        </button>
+      </form>
+    </main>
   );
 }
-
-const formStyle = {
-  display: "flex",
-  flexDirection: "column",
-  width: "300px",
-  margin: "0 auto",
-};
-
-const inputStyle = {
-  marginBottom: "10px",
-  padding: "10px",
-  fontSize: "16px",
-};
-
-const buttonStyle = {
-  padding: "10px",
-  fontSize: "16px",
-  backgroundColor: "#0070f3",
-  color: "#fff",
-  border: "none",
-  cursor: "pointer",
-};
