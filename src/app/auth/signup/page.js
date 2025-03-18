@@ -48,7 +48,7 @@ export default function Signup() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full Name"
-          className="mb-2 p-2 w-full border border-gray-300 rounded"
+          className="mb-2 p-2 w-full border border-gray-300 rounded text-gray-800"
           required
         />
         <input
@@ -56,7 +56,7 @@ export default function Signup() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
-          className="mb-2 p-2 w-full border border-gray-300 rounded"
+          className="mb-2 p-2 w-full border border-gray-300 rounded text-gray-800"
           maxLength={40}
           required
         />
@@ -65,7 +65,7 @@ export default function Signup() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          className="mb-2 p-2 w-full border border-gray-300 rounded"
+          className="mb-2 p-2 w-full border border-gray-300 rounded text-gray-800"
           required
         />
         <input
@@ -73,7 +73,7 @@ export default function Signup() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="mb-4 p-2 w-full border border-gray-300 rounded"
+          className="mb-4 p-2 w-full border border-gray-300 rounded text-gray-800"
           required
         />
         <button
