@@ -2,21 +2,38 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <h1 className="text-4xl font-bold text-gray-800 mb-8">
-        Welcome to Just Go
-      </h1>
-      <div className="flex gap-4">
-        <Link href="/auth/login" legacyBehavior>
-          <a className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">
-            Login
-          </a>
-        </Link>
-        <Link href="/auth/signup" legacyBehavior>
-          <a className="px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition">
-            Sign Up
-          </a>
-        </Link>
+    <main className="min-h-screen relative overflow-hidden">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/background.jpg')", // Replace with your background image path
+        }}
+      ></div>
+
+      {/* Content */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-6">
+        <div className="glass-effect text-center p-8 rounded-lg shadow-lg max-w-xl w-full">
+          <h1 className="text-5xl font-extrabold text-white mb-6">
+            Welcome to <span className="text-pink-400">Just Go</span>
+          </h1>
+          <p className="text-lg text-white mb-8">
+            Discover the best travel destinations, hotels, and restaurants.
+            Start your journey today!
+          </p>
+          <div className="flex gap-6 justify-center">
+            <Link href="/auth/login">
+              <button className="px-6 py-3 bg-purple-900 text-white font-bold rounded-lg shadow-md hover:bg-purple-800 transition">
+                Login
+              </button>
+            </Link>
+            <Link href="/auth/signup">
+              <button className="px-6 py-3 bg-purple-900 text-white font-bold rounded-lg shadow-md hover:bg-purple-800 transition">
+                Sign Up
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );
