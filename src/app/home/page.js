@@ -99,6 +99,95 @@ export default function Home() {
     // The search is already triggered by the useEffect when searchQuery changes
   };
 
+  // Helper function to render different content based on tab
+  const renderListingContent = (item) => {
+    switch (activeTab) {
+      case "hotels":
+        return (
+          <>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              {item.name}
+            </h3>
+            <p className="text-gray-600 mb-3 flex items-center">
+              <MapPin className="w-4 h-4 mr-1" /> {item.location}
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-blue-600 font-medium text-lg">
+                {Array(item.price_range).fill("$").join("")}
+              </span>
+            </div>
+          </>
+        );
+
+      case "restaurants":
+        return (
+          <>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              {item.name}
+            </h3>
+            <p className="text-gray-600 mb-3 flex items-center">
+              <MapPin className="w-4 h-4 mr-1" /> {item.location}
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-blue-600 font-medium text-lg">
+                {Array(item.price_range).fill("$").join("")}
+              </span>
+              <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">
+                {item.cuisine_type}
+              </span>
+            </div>
+          </>
+        );
+
+      case "things-to-do":
+        return (
+          <>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              {item.name}
+            </h3>
+            <p className="text-gray-600 mb-3 flex items-center">
+              <MapPin className="w-4 h-4 mr-1" /> {item.location}
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-blue-600 font-medium text-lg">
+                {Array(item.price_range).fill("$").join("")}
+              </span>
+              <span className="bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm">
+                {item.activity_type}
+              </span>
+            </div>
+          </>
+        );
+
+      case "events":
+        return (
+          <>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              {item.name}
+            </h3>
+            <p className="text-gray-600 mb-3 flex items-center">
+              <MapPin className="w-4 h-4 mr-1" /> {item.location}
+            </p>
+            <p className="text-gray-500 text-sm mb-2">
+              {new Date(item.event_date).toLocaleDateString()} •{" "}
+              {item.start_time}
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-blue-600 font-medium text-lg">
+                {Array(item.price_range).fill("$").join("")}
+              </span>
+              <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">
+                {item.category}
+              </span>
+            </div>
+          </>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <div
       className="min-h-screen"
@@ -171,25 +260,22 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-white mb-8">TOP CATEGORIES</h2>
 
           <div className="flex flex-wrap gap-8 justify-center md:justify-between">
-            {["HOTELS", "RESTAURANTS", "THINGS TO DO", "EVENTS"].map(
-              (category) => (
-                <button
-                  key={category}
-                  onClick={() => {
-                    if (category === "RESTAURANTS") setActiveTab("restaurants");
-                    else if (category === "HOME") setActiveTab("hotels");
-                  }}
-                  className={`text-white text-xl uppercase tracking-wider pb-2 ${
-                    (category === "HOME" && activeTab === "hotels") ||
-                    (category === "RESTAURANTS" && activeTab === "restaurants")
-                      ? "border-b-2 border-white"
-                      : ""
-                  }`}
-                >
-                  {category}
-                </button>
-              )
-            )}
+            {[
+              { name: "HOTELS", value: "hotels" },
+              { name: "RESTAURANTS", value: "restaurants" },
+              { name: "THINGS TO DO", value: "things-to-do" },
+              { name: "EVENTS", value: "events" },
+            ].map((category) => (
+              <button
+                key={category.name}
+                onClick={() => setActiveTab(category.value)}
+                className={`text-white text-xl uppercase tracking-wider pb-2 ${
+                  activeTab === category.value ? "border-b-2 border-white" : ""
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -199,40 +285,30 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-gray-800 mb-8">
               {activeTab === "hotels"
                 ? "Featured Hotels"
-                : "Popular Restaurants"}
+                : activeTab === "restaurants"
+                ? "Popular Restaurants"
+                : activeTab === "things-to-do"
+                ? "Things To Do"
+                : "Upcoming Events"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {listings.map((item) => (
                 <Link
                   key={item.id}
-                  href={`/auth/${activeTab}/${item.id}`}
+                  href={`/auth/${activeTab.replace("_", "-")}/${item.id}`} // Ensure proper route formatting
                   className="group block bg-white rounded-lg shadow hover:shadow-md transition-all"
                 >
                   <div className="h-52 bg-gray-100 rounded-t-lg overflow-hidden">
                     <img
-                      src={item.image_url || "/placeholder-restaurant.png"}
+                      src={
+                        item.image_url ||
+                        `/placeholder-${activeTab.replace("_", "-")}.png`
+                      }
                       alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="p-5">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                      {item.name}
-                    </h3>
-                    <p className="text-gray-600 mb-3 flex items-center">
-                      <MapPin className="w-4 h-4 mr-1" /> {item.location}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-blue-600 font-medium text-lg">
-                        {Array(item.price_range).fill("$").join("")}
-                      </span>
-                      {activeTab === "restaurants" && (
-                        <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">
-                          {item.cuisine_type}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                  <div className="p-5">{renderListingContent(item)}</div>
                 </Link>
               ))}
             </div>
