@@ -160,7 +160,7 @@ export default function Home() {
                 type="submit"
                 className="bg-white text-gray-800 px-6 flex items-center justify-center font-bold"
               >
-                SEARCH
+                SEARCH FOR CITIES
               </button>
             </form>
           </div>
@@ -171,7 +171,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-white mb-8">TOP CATEGORIES</h2>
 
           <div className="flex flex-wrap gap-8 justify-center md:justify-between">
-            {["HOME", "RESTAURANTS", "THINGS TO DO", "EVENTS"].map(
+            {["HOTELS", "RESTAURANTS", "THINGS TO DO", "EVENTS"].map(
               (category) => (
                 <button
                   key={category}
