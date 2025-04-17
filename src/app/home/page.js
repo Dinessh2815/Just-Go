@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
+import Navbar from "@/components/Navbar"; // Import the Navbar component
 
 export default function Home() {
   const [userData, setUserData] = useState(null);
@@ -17,7 +18,6 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch user session
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -27,7 +27,6 @@ export default function Home() {
         return;
       }
 
-      // Fetch user profile
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("username")
@@ -35,12 +34,10 @@ export default function Home() {
         .single();
 
       if (profileError || !profile?.username) {
-        // If no username is found, fallback to email before '@'
         setUserData({
           username: session.user.email.split("@")[0],
         });
       } else {
-        // Set the username from the profile
         setUserData({
           username: profile.username,
         });
@@ -52,7 +49,6 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch user session
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -62,20 +58,17 @@ export default function Home() {
         return;
       }
 
-      // Fetch user profile
       const { data: profile } = await supabase
         .from("profiles")
         .select("name, username")
         .eq("id", session.user.id)
         .single();
 
-      // Set user data
       setUserData({
         name: profile?.name || "Guest",
         username: profile?.username || session.user.email.split("@")[0],
       });
 
-      // Fetch listings with search query
       const { data, error } = await fetchListingsWithSearch();
 
       if (!error) setListings(data || []);
@@ -96,10 +89,8 @@ export default function Home() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // The search is already triggered by the useEffect when searchQuery changes
   };
 
-  // Helper function to render different content based on tab
   const renderListingContent = (item) => {
     switch (activeTab) {
       case "hotels":
@@ -194,36 +185,12 @@ export default function Home() {
       style={{ backgroundImage: "url('/images/image 1@2x.png')" }}
     >
       <div className="min-h-screen bg-black/10">
-        {/* Top Navigation */}
-        <header className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link
-            href="/"
-            className="text-white text-2xl font-bold tracking-wider"
-          >
-            JUST GO
-          </Link>
-          <nav className="hidden md:flex space-x-8">
-            {["HOME", "STAYS", "COMMUNITY", "SIGN UP"].map((item) => (
-              <Link
-                key={item}
-                href="#"
-                className={`text-white uppercase tracking-wider ${
-                  item.toLowerCase() === mainNavActive
-                    ? "border-b-2 border-white pb-1"
-                    : ""
-                }`}
-                onClick={() => setMainNavActive(item.toLowerCase())}
-              >
-                {item}
-              </Link>
-            ))}
-          </nav>
-        </header>
+        {/* Navbar */}
+        <Navbar />
 
         {/* Hero Section */}
         <div className="container mx-auto px-6 pt-20 pb-16">
           <div className="max-w-4xl">
-            {/* Welcome Message */}
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
               Welcome, {userData?.username || "Guest"}!
             </h1>
@@ -233,7 +200,6 @@ export default function Home() {
               AWAITS.
             </h2>
 
-            {/* Search Bar */}
             <form
               onSubmit={handleSearch}
               className="flex w-full max-w-2xl glass-effect rounded-full overflow-hidden"
@@ -295,7 +261,7 @@ export default function Home() {
               {listings.map((item) => (
                 <Link
                   key={item.id}
-                  href={`/auth/${activeTab.replace("_", "-")}/${item.id}`} // Ensure proper route formatting
+                  href={`/auth/${activeTab.replace("_", "-")}/${item.id}`}
                   className="group block bg-white rounded-lg shadow hover:shadow-md transition-all"
                 >
                   <div className="h-52 bg-gray-100 rounded-t-lg overflow-hidden">
