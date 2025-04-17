@@ -160,7 +160,7 @@ export default function Home() {
                 type="submit"
                 className="bg-white text-gray-800 px-6 flex items-center justify-center font-bold"
               >
-                SEARCH FOR CITIES
+                SEARCH
               </button>
             </form>
           </div>
