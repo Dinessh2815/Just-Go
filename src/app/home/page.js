@@ -78,10 +78,12 @@ export default function Home() {
   }, [activeTab, searchQuery, router]);
 
   const fetchListingsWithSearch = async () => {
+    const tableName = activeTab === "things-to-do" ? "things_to_do" : activeTab;
+
     const { data, error } = await supabase
-      .from(activeTab)
+      .from(tableName)
       .select("*")
-      .ilike("location", `%${searchQuery}%`)
+      .ilike("location", `%${searchQuery}%`) // Ensure "location" exists in the table
       .order("created_at", { ascending: false });
 
     return { data, error };
