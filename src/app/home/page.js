@@ -65,7 +65,7 @@ export default function Home() {
         .single();
 
       setUserData({
-        name: profile?.name || "Guest",
+        name: profile?.name,
         username: profile?.username,
       });
 
