@@ -106,7 +106,7 @@ export default function Home() {
             </p>
             <div className="flex items-center justify-between">
               <span className="text-blue-600 font-medium text-lg">
-                {Array(item.price_range).fill("$").join("")}
+                {Array(item.price_range).fill("₹").join("")}
               </span>
             </div>
           </>
