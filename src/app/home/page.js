@@ -66,7 +66,7 @@ export default function Home() {
 
       setUserData({
         name: profile?.name || "Guest",
-        username: profile?.username || session.user.email.split("@")[0],
+        username: profile?.username,
       });
 
       const { data, error } = await fetchListingsWithSearch();
@@ -123,7 +123,7 @@ export default function Home() {
             </p>
             <div className="flex items-center justify-between">
               <span className="text-blue-600 font-medium text-lg">
-                {Array(item.price_range).fill("$").join("")}
+                {Array(item.price_range).fill("₹").join("")}
               </span>
               <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">
                 {item.cuisine_type}
@@ -143,7 +143,7 @@ export default function Home() {
             </p>
             <div className="flex items-center justify-between">
               <span className="text-blue-600 font-medium text-lg">
-                {Array(item.price_range).fill("$").join("")}
+                {Array(item.price_range).fill("₹").join("")}
               </span>
               <span className="bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm">
                 {item.activity_type}
@@ -167,7 +167,7 @@ export default function Home() {
             </p>
             <div className="flex items-center justify-between">
               <span className="text-blue-600 font-medium text-lg">
-                {Array(item.price_range).fill("$").join("")}
+                {Array(item.price_range).fill("₹").join("")}
               </span>
               <span className="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">
                 {item.category}

@@ -94,7 +94,7 @@ export default function RestaurantPage() {
                   Price Range
                 </h2>
                 <p className="text-blue-600 text-xl font-medium">
-                  {Array(restaurant.price_range).fill("$").join("")}
+                  {Array(restaurant.price_range).fill("₹").join("")}
                 </p>
               </div>
             </div>

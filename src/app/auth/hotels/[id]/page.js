@@ -83,7 +83,7 @@ export default function HotelPage() {
                   Price Range
                 </h2>
                 <p className="text-blue-600 text-xl font-medium">
-                  {Array(hotel.price_range).fill("$").join("")}
+                  {Array(hotel.price_range).fill("₹").join("")}
                 </p>
               </div>
 

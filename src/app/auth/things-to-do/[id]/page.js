@@ -109,7 +109,7 @@ export default function ThingsToDoPage() {
                   Price Range
                 </h2>
                 <p className="text-blue-600 text-xl font-medium">
-                  {Array(activity.price_range).fill("$").join("")}
+                  {Array(activity.price_range).fill("₹").join("")}
                 </p>
               </div>
 
