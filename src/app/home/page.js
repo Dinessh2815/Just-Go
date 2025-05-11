@@ -194,7 +194,7 @@ export default function Home() {
         <div className="container mx-auto px-6 pt-20 pb-16">
           <div className="max-w-4xl">
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Welcome, {userData?.username || "Guest"}!
+              Welcome, {userData?.username}!
             </h1>
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               THE WHOLE WORLD
