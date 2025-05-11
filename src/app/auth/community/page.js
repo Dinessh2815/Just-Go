@@ -71,17 +71,16 @@ export default function CommunityPage() {
       return `${Math.floor(diffInSeconds / 86400)}d ago`;
     return date.toLocaleDateString();
   };
-
   return (
     <div
       className="min-h-screen"
       style={{
         backgroundImage: "url('/images/image 1@2x.png')",
-        backgroundSize: "100% 100vh",
-        backgroundPosition: "top center",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
         backgroundColor: "#e6f2ff", // Light blue background
-        backgroundAttachment: "scroll",
       }}
     >
       {" "}

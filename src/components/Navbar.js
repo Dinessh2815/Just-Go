@@ -69,7 +69,7 @@ export default function Navbar() {
             className={`uppercase tracking-wider ${
               mainNavActive === item.name.toLowerCase()
                 ? "text-white border-b-2 border-white pb-1"
-                : "text-gray-400 hover:text-gray-200"
+                : "text-gray-100 hover:text-gray-200"
             }`}
             onClick={() => setMainNavActive(item.name.toLowerCase())}
           >

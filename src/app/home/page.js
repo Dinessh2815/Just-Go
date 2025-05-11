@@ -180,16 +180,20 @@ export default function Home() {
         return null;
     }
   };
-
   return (
     <div
-      className="min-h-screen"
-      style={{ backgroundImage: "url('/images/image 1@2x.png')" }}
+      className="min-h-screen flex flex-col"
+      style={{
+        backgroundImage: "url('/images/image 1@2x.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
     >
-      <div className="min-h-screen bg-black/10">
+      <div className="flex-1 flex flex-col bg-black/10">
         {/* Navbar */}
         <Navbar />
-
         {/* Hero Section */}
         <div className="container mx-auto px-6 pt-20 pb-16">
           <div className="max-w-4xl">
@@ -222,7 +226,6 @@ export default function Home() {
             </form>
           </div>
         </div>
-
         {/* Categories Section */}
         <div className="container mx-auto px-6 pb-16">
           <h2 className="text-3xl font-bold text-white mb-8">TOP CATEGORIES</h2>
@@ -245,40 +248,41 @@ export default function Home() {
               </button>
             ))}
           </div>
-        </div>
-
+        </div>{" "}
         {/* Listings Grid */}
         {listings.length > 0 && (
-          <div className="container mx-auto px-6 py-16 bg-white/90 min-h-screen">
-            <h2 className="text-3xl font-bold text-gray-800 mb-8">
-              {activeTab === "hotels"
-                ? "Featured Hotels"
-                : activeTab === "restaurants"
-                ? "Popular Restaurants"
-                : activeTab === "things-to-do"
-                ? "Things To Do"
-                : "Upcoming Events"}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {listings.map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/auth/${activeTab.replace("_", "-")}/${item.id}`}
-                  className="group block bg-white rounded-lg shadow hover:shadow-md transition-all"
-                >
-                  <div className="h-52 bg-gray-100 rounded-t-lg overflow-hidden">
-                    <img
-                      src={
-                        item.image_url ||
-                        `/placeholder-${activeTab.replace("_", "-")}.png`
-                      }
-                      alt={item.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-5">{renderListingContent(item)}</div>
-                </Link>
-              ))}
+          <div className="w-full bg-white/90 shadow-lg flex-grow mt-8 pb-24">
+            <div className="container mx-auto px-6 pt-16">
+              <h2 className="text-3xl font-bold text-gray-800 mb-8">
+                {activeTab === "hotels"
+                  ? "Featured Hotels"
+                  : activeTab === "restaurants"
+                  ? "Popular Restaurants"
+                  : activeTab === "things-to-do"
+                  ? "Things To Do"
+                  : "Upcoming Events"}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {listings.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/auth/${activeTab.replace("_", "-")}/${item.id}`}
+                    className="group block bg-white rounded-lg shadow hover:shadow-md transition-all"
+                  >
+                    <div className="h-52 bg-gray-100 rounded-t-lg overflow-hidden">
+                      <img
+                        src={
+                          item.image_url ||
+                          `/placeholder-${activeTab.replace("_", "-")}.png`
+                        }
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-5">{renderListingContent(item)}</div>{" "}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         )}

@@ -128,11 +128,17 @@ export default function CreatePost() {
       setUploading(false);
     }
   };
-
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundImage: "url('/images/image 1@2x.png')" }}
+      style={{
+        backgroundImage: "url('/images/image 1@2x.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        backgroundColor: "#e6f2ff", // Light blue background
+      }}
     >
       <div className="min-h-screen bg-black/20">
         {/* Navbar */}

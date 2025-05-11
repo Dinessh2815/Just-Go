@@ -327,12 +327,18 @@ export default function PostDetail() {
       return `${Math.floor(diffInSeconds / 86400)}d ago`;
     return date.toLocaleDateString();
   };
-
   if (loading) {
     return (
       <div
         className="min-h-screen"
-        style={{ backgroundImage: "url('/images/image 1@2x.png')" }}
+        style={{
+          backgroundImage: "url('/images/image 1@2x.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          backgroundColor: "#e6f2ff", // Light blue background
+        }}
       >
         <div className="min-h-screen bg-black/20">
           <Navbar />
@@ -349,12 +355,18 @@ export default function PostDetail() {
       </div>
     );
   }
-
   if (error) {
     return (
       <div
         className="min-h-screen"
-        style={{ backgroundImage: "url('/images/image 1@2x.png')" }}
+        style={{
+          backgroundImage: "url('/images/image 1@2x.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          backgroundColor: "#e6f2ff", // Light blue background
+        }}
       >
         <div className="min-h-screen bg-black/20">
           <Navbar />
@@ -367,11 +379,17 @@ export default function PostDetail() {
       </div>
     );
   }
-
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundImage: "url('/images/image 1@2x.png')" }}
+      style={{
+        backgroundImage: "url('/images/image 1@2x.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        backgroundColor: "#e6f2ff", // Light blue background
+      }}
     >
       <div className="min-h-screen bg-black/20">
         <Navbar />
