@@ -136,10 +136,9 @@ export default function CreatePost() {
     >
       <div className="min-h-screen bg-black/20">
         {/* Navbar */}
-        <Navbar />
-
-        <div className="max-w-2xl mx-auto py-10 px-4 sm:px-6">
-          <div className="mb-6">
+        <Navbar />{" "}
+        <div className="max-w-2xl mx-auto py-6 sm:py-10 px-4 sm:px-6">
+          <div className="mb-4 sm:mb-6">
             <Link
               href="/auth/community"
               className="inline-flex items-center text-white hover:text-gray-200"
@@ -150,17 +149,20 @@ export default function CreatePost() {
           </div>
 
           <div className="glass-effect rounded-lg overflow-hidden">
-            <div className="p-6 border-b border-white/10">
-              <h1 className="text-2xl font-bold text-white">Create a Post</h1>
-            </div>
-
+            <div className="p-4 sm:p-6 border-b border-white/10">
+              <h1 className="text-xl sm:text-2xl font-bold text-white">
+                Create a Post
+              </h1>
+            </div>{" "}
             {error && (
               <div className="mx-6 mt-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm">
                 {error}
               </div>
             )}
-
-            <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              className="p-4 sm:p-6 space-y-4 sm:space-y-6"
+            >
               {/* Title input */}
               <div>
                 <label
@@ -228,7 +230,6 @@ export default function CreatePost() {
                 <label className="block text-sm font-medium text-white mb-1">
                   Image (optional)
                 </label>
-
                 <div className="mt-1 flex items-center">
                   <label className="flex items-center justify-center px-4 py-2 bg-white/30 border border-white/20 rounded-md shadow-sm text-sm font-medium text-white hover:bg-white/40 cursor-pointer transition">
                     <ImageIcon size={18} className="mr-2 text-white" />
@@ -245,8 +246,7 @@ export default function CreatePost() {
                       {image.name}
                     </span>
                   )}
-                </div>
-
+                </div>{" "}
                 {imagePreview && (
                   <div className="mt-3 relative rounded-lg overflow-hidden border border-white/20">
                     <img

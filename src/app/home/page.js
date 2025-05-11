@@ -249,7 +249,7 @@ export default function Home() {
 
         {/* Listings Grid */}
         {listings.length > 0 && (
-          <div className="container mx-auto px-6 py-16 bg-white/90">
+          <div className="container mx-auto px-6 py-16 bg-white/90 min-h-screen">
             <h2 className="text-3xl font-bold text-gray-800 mb-8">
               {activeTab === "hotels"
                 ? "Featured Hotels"

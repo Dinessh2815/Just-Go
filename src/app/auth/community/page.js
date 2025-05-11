@@ -75,20 +75,29 @@ export default function CommunityPage() {
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundImage: "url('/images/image 1@2x.png')" }}
+      style={{
+        backgroundImage: "url('/images/image 1@2x.png')",
+        backgroundSize: "100% 100vh",
+        backgroundPosition: "top center",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#e6f2ff", // Light blue background
+        backgroundAttachment: "scroll",
+      }}
     >
-      <div className="min-h-screen bg-black/20">
+      {" "}
+      <div className="min-h-screen bg-gradient-to-b from-black/30 via-black/10 to-transparent">
+        {/* Top fade fix - removes white line */}
+        <div className="w-full h-1 bg-black/30"></div>
         {/* Navbar */}
-        <Navbar />
-
-        <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-extrabold text-white">
+        <Navbar />{" "}
+        <div className="max-w-4xl mx-auto py-6 sm:py-10 px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 sm:mb-8 gap-3">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
               Community Insights
             </h1>
             <button
               onClick={refreshPosts}
-              className="text-white hover:text-gray-200 flex items-center gap-1"
+              className="text-white hover:text-gray-200 flex items-center gap-1 self-end sm:self-auto"
             >
               <RefreshCw size={16} />
               <span className="text-sm">Refresh</span>
@@ -167,12 +176,12 @@ export default function CommunityPage() {
               </div>
             ) : (
               posts.map((post, index) => (
-                <div key={post.id} className="mb-16 last:mb-0">
+                <div key={post.id} className="mb-8 sm:mb-16 last:mb-0">
                   <Link href={`/auth/community/post/${post.id}`}>
                     <div className="bg-white/90 rounded-lg shadow hover:shadow-md transition-shadow cursor-pointer overflow-hidden">
-                      <div className="p-6">
+                      <div className="p-4 sm:p-6">
                         {/* Post metadata */}
-                        <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
+                        <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 mb-3">
                           <div className="flex gap-1.5 flex-wrap">
                             {post.post_cities?.map((pc, i) => (
                               <span
